@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Редактирование пользователя";
 }
+@if (User.Identity.Name == "admin12345@gmail.com")
+{
     <form asp-action="Edit" asp-controller="Users">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
@@ -9,23 +11,20 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Name" class="control-label">Год рождения</label>
-            <input type="number" asp-for="Name" class="form-control" />
+            <label asp-for="Name" class="control-label">Имя</label>
+            <input type="text" asp-for="Name" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="NumberPhone" class="control-label">Год рождения</label>
-            <input type="number" asp-for="NumberPhone" class="form-control" />
+            <label asp-for="NumberPhone" class="control-label">Номер телефона</label>
+            <input type="text" asp-for="NumberPhone" class="form-control" />
         </div>
         <div class="form-group">
             <label asp-for="Email" class="control-label">Email</label>
             <input type="text" asp-for="Email" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="Name" class="control-label">Год рождения</label>
-            <input type="number" asp-for="Name" class="form-control" />
-        </div>
-        <div class="form-group">
             <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
         </div>
     </form>
+}
