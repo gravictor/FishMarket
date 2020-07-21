@@ -18,14 +18,16 @@ namespace FishMarket.mocks
                 return new List<Fish>
                 {
                     new Fish{
-                        name="Acula",
+                        name="Акула",
+                        img="https://kor.ill.in.ua/m/1260x900/2430572.jpg",
                         price=200,
                         unit="шт",
                         country="South Africa",
                         Category = _categoryFish.AllCategories.Last() 
                     },
                     new Fish{
-                        name="Тюлька",
+                        name="ЕГОР",
+                        img="http://chernomorets.odessa.ua/images/sdushor/17.jpg",
                         price=50,
                         subCategory = "Столовая",
                         unit="кг",
