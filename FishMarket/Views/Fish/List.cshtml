@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ассортимент рыбы</title>
+</head>
+<body>
+    <h1>Вся рыба</h1>
+    <h3>@Model.currCategory</h3>
+    @{ 
+        foreach (var fish in Model.allFish)
+        {
+            <div>
+                <h2>Name: @fish.name</h2>
+                <p>Price: @fish.price grn/@fish.unit</p>
+                <p>@fish.Category and @fish.subCategory</p>
+            </div>
+        }
+    }
+</body>
+</html>
