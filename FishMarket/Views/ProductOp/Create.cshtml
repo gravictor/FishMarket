@@ -1,0 +1,39 @@
+﻿@model FishMarket.ViewModels.FishViewModel
+@{
+    ViewBag.Title = "Добавление товара";
+}
+    <form asp-action="Create" asp-controller="ProductOp">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="name" class="control-label">Название</label>
+            <input type="text" asp-for="name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="price" class="control-label">Цена(грн)</label>
+            <input type="text" asp-for="price" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="unit" class="control-label">Удуница измерения(кг/шт)</label>
+            <input type="text" asp-for="unit" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="SubCategory" class="control-label">Подкатегория(Если есть)</label>
+            <input type="text" asp-for="SubCategory" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="country" class="control-label">Страна</label>
+            <input type="text" asp-for="country" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="img" class="control-label">Ссылка на картинку</label>
+            <input type="text" asp-for="img" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="categoryID" class="control-label">Id Категории</label>
+            <input type="number" asp-for="categoryID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
+        </div>
+    </form>

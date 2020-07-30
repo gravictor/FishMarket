@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary border-bottom box-shadow">
+        <div class="container">
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    @foreach (var item in Model.currCategory)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="" asp-action="">@item.categoryName</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+<div class="row mt-5 mb-2">
+    @{
+        foreach (var fish in Model.allFish)
+        {
+            foreach (var category in Model.currCategory)
+            {
+                if (category.categoryName == "Мороженная рыба")
+                {
+                    <div class="col-lg-4">
+                        <img class="img-thumbnail" src="@fish.img" alt="@fish.name" height="400" width="400" />
+                        <h2>@fish.name </h2>
+                        <p>Цена: @fish.price grn/@fish.unit</p>
+                        <p>Страна изготовитель: @fish.country</p>
+                        <p><a class="btn btn-warning" href="#">Подробнее</a></p>
+                    </div>
+                }
+            }
+        }
+    }
+</div>

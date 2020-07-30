@@ -9,6 +9,7 @@ namespace FishMarket.ViewModels
     public class FishListViewModel
     {
         public IEnumerable<Fish> allFish { get; set; }
-        public string currCategory { get; set; }
+        public IEnumerable<Category> currCategory { get; set; }
+
     }
 }

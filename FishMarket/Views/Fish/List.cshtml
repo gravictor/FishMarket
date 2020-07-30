@@ -1,11 +1,25 @@
-﻿
-@{
+﻿@{
     Layout = "_Layout";
 }
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary border-bottom box-shadow">
+            <div class="container">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                         <li class="nav-item">
+                             <a class="nav-link text-white" asp-area="" asp-controller="Fish" asp-action="FrozenFish">Мороженная рыба</a>
+                         </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
+
+      
     <div class="row mt-5 mb-2">
         @{
-            foreach (var fish in Model.allFish)
+            foreach (var fish in Model)
             {
                 <div class="col-lg-4">
                     <img class="img-thumbnail" src="@fish.img" alt="@fish.name"/>
