@@ -1,17 +1,12 @@
-﻿@{
-
+﻿
+@{
     Layout = "_Layout";
 }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary border-bottom box-shadow">
             <div class="container">
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon bg-white"></span>
-                    </button>
                     <ul class="navbar-nav flex-grow-1">
-
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-action="ChoosenFish" asp-route-id="1">Мороженная рыба</a>
                             <a class="nav-link text-white" asp-action="ChoosenFish" asp-route-id="2">Морепродукты</a>
@@ -31,18 +26,18 @@
     </header>
 
 
-      
-    <div class="row mt-5 mb-2">
-        @{
-            foreach (var fish in Model)
-            {
-                <div class="col-lg-4">
-                    <img class="img-thumbnail" src="@fish.img" alt="@fish.name"/>
-                    <h2>@fish.name </h2>
-                    <p>Цена: @fish.price grn/@fish.unit</p>
-                    <p>Страна изготовитель: @fish.country</p>
-                    <p><a class="btn btn-warning" href="#">Подробнее</a></p>
-                </div>
-            }
+
+<div class="row mt-5 mb-2">
+    @{
+        foreach (var fish in Model)
+        {
+            <div class="col-lg-4">
+                <img class="img-thumbnail" src="@fish.img" alt="@fish.name" />
+                <h2>@fish.name </h2>
+                <p>Цена: @fish.price grn/@fish.unit</p>
+                <p>Страна изготовитель: @fish.country</p>
+                <p><a class="btn btn-warning" href="#">Подробнее</a></p>
+            </div>
         }
-    </div>
+    }
+</div>

@@ -28,26 +28,25 @@ namespace FishMarket.Controllers
             var data = db.fish.AsNoTracking().ToList();
             return View(data);
         }
-        public ViewResult FrozenFish()
+        
+        public IActionResult ChoosenFish(string id)
         {
             FishListViewModel obj = new FishListViewModel();
-            FishListViewModel res = new FishListViewModel();
+            var data = db.fish.AsNoTracking().ToList();
             obj.currCategory = _allCategories.AllCategories;
-            foreach (var item in obj.currCategory)
+            List<FishViewModel> res = new List<FishViewModel>();
+            for (int i = 0; i < data.Count; i++)
             {
-                if (item.categoryName=="Мороженная рыба")
+                for (int j = 1; j < obj.currCategory.ToList().Count+1; j++)
                 {
-                    res.allFish = _allFish.Fish;
-                    foreach (var r in obj.allFish)
+                    if (data[i].categoryID==Convert.ToInt32(id))
                     {
-                        if (r.Category == item)
-                        {
-
-                        }
+                        res.Add(data[i]);
+                        break;
                     }
                 }
             }
-            return View(obj);
+            return View(res);
         }
 
     }

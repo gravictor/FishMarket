@@ -1,0 +1,27 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <p> Здравствуйте, @User.Identity.Name</p>
+    if (@User.Identity.Name == "admin12345@gmail.com")
+    {
+        <form method="post" asp-controller="ProductOp" asp-action="Index">
+            <input type="submit" value="Ассортимент товара" />
+        </form>
+        <br />
+        <form method="post" asp-controller="Users" asp-action="Index">
+            <input type="submit" value="Список пользователей" />
+        </form>
+    }
+    <br />
+    <form asp-action="ChangePassword" asp-controller="PersonalCabinet" asp-route-email="@User.Identity.Name" method="post">
+        <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-email="@User.Identity.Name">Изменить пароль</a>
+    </form>
+    <br />
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login">Вход</a>
+    <a asp-controller="Account" asp-action="Register">Регистрация</a>
+}
