@@ -15,6 +15,5 @@ namespace FishMarket.Models
         public string country { get; set; }
         public string img { get; set; }
         public int categoryID { get; set; }
-        public virtual Category Category { get; set; } 
     }
 }

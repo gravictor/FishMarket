@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace FishMarket.ViewModels
 {
-    [Table("Fish")]
     public class FishViewModel
     {
         public int id { get; set; }

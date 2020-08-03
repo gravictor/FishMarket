@@ -37,11 +37,15 @@
             foreach (var fish in Model)
             {
                 <div class="col-lg-4">
-                    <img class="img-thumbnail" src="@fish.img" alt="@fish.name"/>
+                    <img class="img-thumbnail" src="@fish.img" alt="@fish.name" />
                     <h2>@fish.name </h2>
                     <p>Цена: @fish.price grn/@fish.unit</p>
                     <p>Страна изготовитель: @fish.country</p>
-                    <p><a class="btn btn-warning" href="#">Подробнее</a></p>
+                    @if (User.Identity.IsAuthenticated)
+                     {
+                        <form asp-action="Order" asp-controller="Fish" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name" method="post" />
+                        <a class="btn btn-sm btn-primary" asp-action="Order" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name">Купить</a>
+                     }
                 </div>
             }
         }

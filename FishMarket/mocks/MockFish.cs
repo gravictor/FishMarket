@@ -22,8 +22,7 @@ namespace FishMarket.mocks
                         img="https://kor.ill.in.ua/m/1260x900/2430572.jpg",
                         price="200",
                         unit="шт",
-                        country="South Africa",
-                        Category = _categoryFish.AllCategories.Last() 
+                        country="South Africa"
                     },
                     new Fish{
                         name="ЕГОР",
@@ -31,8 +30,7 @@ namespace FishMarket.mocks
                         price="50",
                         subCategory = "Столовая",
                         unit="кг",
-                        country="UA",
-                        Category = _categoryFish.AllCategories.First()
+                        country="UA"
                     }
                 };
             }

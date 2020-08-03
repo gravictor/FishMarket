@@ -1,24 +1,17 @@
 ﻿@model FishMarket.ViewModels.LoginViewModel
+    <body class="text-center mt-5">
+        <form class="form-signin" asp-controller="Account" asp-action="Login"
+                    asp-route-returnUrl="@Model.ReturnUrl">
+            <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Пожалуйста авторизируйтесь</h1>
 
-<h2>Вход в приложение</h2>
-<form method="post" asp-controller="Account" asp-action="Login"
-            asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />
-    </div>
-    <div>
-        <input type="submit" value="Войти" />
-    </div>
-</form>
+            <label asp-for="Email" class="sr-only">Email address</label>
+            <input asp-for="Email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+
+            <label asp-for="Password" class="sr-only">Пароль</label>
+            <input asp-for="Password" id="inputPassword" class="form-control" placeholder="Password" required="">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+            <p class="mt-5 mb-3 text-muted">© 2017-2020</p>
+        </form>
+    </body>
