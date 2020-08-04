@@ -2,86 +2,93 @@
 @{
     ViewBag.Title = "Добавление товара";
 }
-    <form asp-action="Create" asp-controller="ProductOp">
-        <div asp-validation-summary="All" class="text-danger"></div>
+@if (User.Identity.Name == "admin12345@gmail.com")
+{
+<form asp-action="Create" asp-controller="ProductOp">
+    <div asp-validation-summary="All" class="text-danger"></div>
 
-        <div class="form-group">
-            <label asp-for="name" class="control-label">Название</label>
-            <input type="text" asp-for="name" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="price" class="control-label">Цена(грн)</label>
-            <input type="text" asp-for="price" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="unit" class="control-label">Еденица измерения(кг/шт)</label>
-            <input type="text" asp-for="unit" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="SubCategory" class="control-label">Подкатегория(Если есть)</label>
-            <input type="text" asp-for="SubCategory" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="country" class="control-label">Страна</label>
-            <input type="text" asp-for="country" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="img" class="control-label">Ссылка на картинку</label>
-            <input type="text" asp-for="img" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="categoryID" class="control-label">Id Категории</label>
-            <input type="number" asp-for="categoryID" class="form-control" />
-        </div>
-        <div>
-            <table class="table">
-                <tr>
-                    <th>ID</th>
-                    <th>Название категории</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Мороженная рыба</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Морепродукты</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Свежая рыба</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Копченная рыба</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Вяленая рыба</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Снеки</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Прессервы</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Икра</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Всё для суши</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>Консервы</td>
-                </tr>
-            </table>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
-        </div>
-    </form>
+    <div class="form-group">
+        <label asp-for="name" class="control-label">Название</label>
+        <input type="text" asp-for="name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="price" class="control-label">Цена(грн)</label>
+        <input type="text" asp-for="price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="unit" class="control-label">Еденица измерения(кг/шт)</label>
+        <input type="text" asp-for="unit" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SubCategory" class="control-label">Подкатегория(Если есть)</label>
+        <input type="text" asp-for="SubCategory" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="country" class="control-label">Страна</label>
+        <input type="text" asp-for="country" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="img" class="control-label">Ссылка на картинку</label>
+        <input type="text" asp-for="img" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="categoryID" class="control-label">Id Категории</label>
+        <input type="number" asp-for="categoryID" class="form-control" />
+    </div>
+    <div>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Название категории</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Мороженная рыба</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Морепродукты</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Свежая рыба</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Копченная рыба</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Вяленая рыба</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Снеки</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Прессервы</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Икра</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Всё для суши</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Консервы</td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
+    </div>
+</form>
+}
+else
+{
+<h2>У вас недостаточно прав</h2>
+}

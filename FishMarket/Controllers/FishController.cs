@@ -63,6 +63,7 @@ namespace FishMarket.Controllers
                 {
                     fish.name = item.name;
                     fish.price = item.price;
+                    fish.unit = item.unit;
                 }
             }
             User user = await _userManager.FindByEmailAsync(Email);
@@ -70,7 +71,7 @@ namespace FishMarket.Controllers
             {
                 return NotFound();
             }
-            OrderViewModel model = new OrderViewModel { Id = user.Id, Name = user.Name, Email = user.Email, PhoneNumber = user.PhoneNumber, Price = fish.price, ProductName = fish.name };
+            OrderViewModel model = new OrderViewModel { Id = user.Id, Name = user.Name, Email = user.Email, PhoneNumber = user.NumberPhone, Price = fish.price, ProductName = fish.name, unit = fish.unit };
 
             return View(model);
         }
@@ -79,7 +80,8 @@ namespace FishMarket.Controllers
         {
             orderDb.order.Add(Orders);
             orderDb.SaveChanges();
-            return View();
+            return RedirectToAction("ThanksOrder");
         }
+        public IActionResult ThanksOrder() => View();
     }
 }

@@ -16,9 +16,14 @@
         <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-email="@User.Identity.Name">Изменить пароль</a>
     </form>
     <br />
+    <form method="post" asp-controller="PersonalCabinet" asp-action="MyOrders">
+        <input type="submit" value="Мои заказы" />
+    </form>
+    <br />
     <form method="post" asp-controller="Account" asp-action="Logout">
         <input type="submit" value="Выход" />
     </form>
+    
 }
 else
 {

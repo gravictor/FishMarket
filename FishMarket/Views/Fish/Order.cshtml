@@ -1,15 +1,36 @@
-﻿
+﻿@model FishMarket.ViewModels.OrderViewModel
 @{
-    Layout = null;
+    ViewBag.Title = "Заказ";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Order</title>
-</head>
-<body>
-</body>
-</html>
+    <form asp-action="Order" asp-controller="Fish">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="unit" />
+            <input type="hidden" asp-for="Price"/>
+        </div>
+        <div class="form-group">
+            <input type="hidden" asp-for="Email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Им'я</label>
+            <input type="text" asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="hidden" asp-for="PhoneNumber" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductName" class="control-label">Товар</label>
+            <input type="text" asp-for="ProductName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Count" class="control-label">Количество</label>
+            <input type="number" asp-for="Count" class="form-control" />
+        </div>
+        <div class="form-group">
+            <p>Цена: @Model.Price @Model.unit</p>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Купити" class="btn btn-outline-secondary" />
+        </div>
+    </form>

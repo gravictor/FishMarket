@@ -2,6 +2,7 @@
 using FishMarket.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace FishMarket.Controllers
 {
     public class PersonalCabinetController: Controller
     {
+        private OrderContext db;
         UserManager<User> _userManager;
-        public PersonalCabinetController(UserManager<User> userManager)
+        public PersonalCabinetController(UserManager<User> userManager, OrderContext context)
         {
+            db = context;
             _userManager = userManager;
         }
         public IActionResult Index()
@@ -29,7 +32,11 @@ namespace FishMarket.Controllers
             }
             ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
             return View(model);
-
+        }
+        public IActionResult MyOrders()
+        {
+            var data = db.order.AsNoTracking().ToList();
+            return View(data);
         }
     }
 }

@@ -4,7 +4,8 @@
 }
 
 
-
+@if (User.Identity.Name == "admin12345@gmail.com")
+{
     <a asp-action="Create">Добавить позицию</a>
 
     <table class="table">
@@ -31,3 +32,8 @@
             </tr>
         }
     </table>
+}
+else
+{
+    <h2>У вас недостаточно прав</h2>
+}

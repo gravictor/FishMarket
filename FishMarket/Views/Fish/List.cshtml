@@ -37,9 +37,9 @@
             foreach (var fish in Model)
             {
                 <div class="col-lg-4">
-                    <img class="img-thumbnail" src="@fish.img" alt="@fish.name" />
+                    <img class="img-thumbnail" src="@fish.img" alt="@fish.name " width="300" height="150" />
                     <h2>@fish.name </h2>
-                    <p>Цена: @fish.price grn/@fish.unit</p>
+                    <p>Цена: @fish.price грн/@fish.unit</p>
                     <p>Страна изготовитель: @fish.country</p>
                     @if (User.Identity.IsAuthenticated)
                      {

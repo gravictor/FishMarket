@@ -1,0 +1,38 @@
+﻿@model  IEnumerable<FishMarket.ViewModels.OrderViewModel>
+
+    <body>
+        <h3>Мои страховки</h3>
+        @{
+            foreach (var item in Model)
+            {
+                if (item.Email == User.Identity.Name && "admin12345@gmail.com" != item.Email)
+                {
+                    <div class="row mt-5 mb-2">
+
+                        <div class="col-lg-4">
+                            <h3>@item.ProductName</h3>
+                            <p>Цена: @Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</p>
+                            <p>Цена за 1 @item.unit: @item.Price грн</p>
+                            <p>Количество @item.unit: @item.Count</p>
+                        </div>
+                    </div>
+                }
+                if ("admin12345@gmail.com" == item.Email)
+                {
+                    <div class="row mt-5 mb-2">
+
+                        <div class="col-lg-4">
+
+                            <h3>@item.ProductName</h3>
+                            <p>Имя покупателя: @item.Name</p>
+                            <p>Номер телефона покупателя: @item.PhoneNumber</p>
+                            <p>email покупателя: @item.Email</p>
+                            <p>Цена: @Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</p>
+                            <p>Цена за 1 @item.unit: @item.Price грн</p>
+                            <p>Количество @item.unit: @item.Count</p>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </body>
