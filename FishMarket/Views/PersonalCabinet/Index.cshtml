@@ -1,4 +1,5 @@
-﻿@if (User.Identity.IsAuthenticated)
+﻿@model IEnumerable<FishMarket.Models.User>
+@if (User.Identity.IsAuthenticated)
 {
     <p> Здравствуйте, @User.Identity.Name</p>
     if (@User.Identity.Name == "admin12345@gmail.com")
@@ -10,20 +11,32 @@
         <form method="post" asp-controller="Users" asp-action="Index">
             <input type="submit" value="Список пользователей" />
         </form>
+        <br />
+        <form method="post" asp-controller="PersonalCabinet" asp-action="AdminOrder">
+            <input type="submit" value="Все заказы" />
+        </form>
     }
-    <br />
-    <form asp-action="ChangePassword" asp-controller="PersonalCabinet" asp-route-email="@User.Identity.Name" method="post">
-        <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-email="@User.Identity.Name">Изменить пароль</a>
-    </form>
-    <br />
-    <form method="post" asp-controller="PersonalCabinet" asp-action="MyOrders">
-        <input type="submit" value="Мои заказы" />
-    </form>
+    else
+    {
+        <br />
+        <form method="post" asp-controller="PersonalCabinet" asp-action="MyOrders">
+            <input type="submit" value="Мои заказы" />
+        </form>
+    }
+    foreach (var item in Model)
+    {
+        if (item.Email == User.Identity.Name)
+        {
+            <br />
+            <form asp-action="ChangePassword" asp-controller="PersonalCabinet" asp-route-id="@item.Id" method="post">
+                <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-id="@item.Id">Сменить пароль</a>
+            </form>
+        }
+    }
     <br />
     <form method="post" asp-controller="Account" asp-action="Logout">
         <input type="submit" value="Выход" />
     </form>
-    
 }
 else
 {
