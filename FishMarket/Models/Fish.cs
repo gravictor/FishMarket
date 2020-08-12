@@ -9,6 +9,9 @@ namespace FishMarket.Models
     {
         public int id { get; set; }
         public string name { get; set; }
+        public string Description { get; set; }
+        public string IsPromotionalItem { get; set; }
+        public string SeasonItem { get; set; }
         public string price { get; set; }
         public string subCategory { get; set; }
         public string unit { get; set; }

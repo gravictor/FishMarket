@@ -1,7 +1,28 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+    <div class="row mt-5 mb-2">
+        @{
+            foreach (var fish in Model)
+            {
+                if (fish.SeasonItem=="+")
+                {
 
+                    <div class="col-lg-4">
+                        <img class="img-thumbnail" src="@fish.img" alt="@fish.name " width="300" height="150" />
+                        <h2>@fish.name </h2>
+                        <p>Цена: @fish.price грн/@fish.unit</p>
+                        <p>Страна изготовитель: @fish.country</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-action="Order" asp-controller="Fish" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name" method="post" />
+                            <a class="btn btn-sm btn-primary" asp-action="Order" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name">Купить</a>
+                        }
+                    </div>
+                }
+            }
+        }
+    </div>
 @if (User.Identity.IsAuthenticated)
 {
     <p> @User.Identity.Name</p>

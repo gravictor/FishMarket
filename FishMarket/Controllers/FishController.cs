@@ -9,6 +9,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// Отправка уведомлений при order в тг
+// акционный товар светиться isFav
+// добавить к рыбе описание
+// Акционная цена = описание
+// rar видимка сезонные на главную страницу
+// Подсветка обработ заказов
+
+// стили Lаst
+// корзина отдельная
+// поисковик
+
 namespace FishMarket.Controllers
 {
     public class FishController: Controller
@@ -64,6 +75,7 @@ namespace FishMarket.Controllers
                     fish.name = item.name;
                     fish.price = item.price;
                     fish.unit = item.unit;
+                    fish.Description = item.Description;
                 }
             }
             User user = await _userManager.FindByEmailAsync(Email);

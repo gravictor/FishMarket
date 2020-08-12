@@ -13,15 +13,15 @@ namespace FishMarket.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private FishContext db;
+
+        public HomeController(ILogger<HomeController> logger, FishContext context)
         {
+            db = context;
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View(db.fish.ToList());
 
         public IActionResult Privacy()
         {

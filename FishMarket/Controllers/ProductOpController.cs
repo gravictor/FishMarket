@@ -57,7 +57,7 @@ namespace FishMarket.Controllers
             {
                 if (obj.id.ToString() == id)
                 {
-                    FishViewModel fishId = new FishViewModel { id = obj.id, name = obj.name, country = obj.country, categoryID = obj.categoryID, img = obj.img, price = obj.price, SubCategory = obj.SubCategory, unit = obj.unit };
+                    FishViewModel fishId = new FishViewModel { id = obj.id, name = obj.name, country = obj.country, categoryID = obj.categoryID, img = obj.img, price = obj.price, SubCategory = obj.SubCategory, unit = obj.unit, Description= obj.Description, IsPromotionalItem = obj.IsPromotionalItem, SeasonItem = obj.SeasonItem };
                     model = fishId;
                 }
             }
@@ -80,6 +80,9 @@ namespace FishMarket.Controllers
                 if (fish != null)
                 {
                     selectedObj.name = model.name;
+                    selectedObj.SeasonItem = model.SeasonItem;
+                    selectedObj.IsPromotionalItem = model.IsPromotionalItem;
+                    selectedObj.Description = model.Description;
                     selectedObj.country = model.country;
                     selectedObj.categoryID = model.categoryID;
                     selectedObj.price = model.price;
@@ -101,7 +104,7 @@ namespace FishMarket.Controllers
             {
                 if (obj.id.ToString() == id)
                 {
-                    FishViewModel fishId = new FishViewModel { id = obj.id, name = obj.name, country = obj.country, categoryID = obj.categoryID, img = obj.img, price = obj.price, SubCategory = obj.SubCategory, unit = obj.unit };
+                    FishViewModel fishId = new FishViewModel { id = obj.id, name = obj.name, country = obj.country, categoryID = obj.categoryID, img = obj.img, price = obj.price, SubCategory = obj.SubCategory, unit = obj.unit, Description = obj.Description, IsPromotionalItem = obj.IsPromotionalItem, SeasonItem = obj.SeasonItem };
                     model = fishId;
                 }
             }

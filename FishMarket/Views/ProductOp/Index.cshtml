@@ -9,27 +9,30 @@
     <a asp-action="Create">Добавить позицию</a>
 
     <table class="table">
-        <tr><th>Название</th><th>Страна</th><th>Цена</th><th>ЕД. Изм.</th><th>Картинка</th><th>Кат. ID</th><th>Подкатегория</th></tr>
+        <tr><th>Название</th><th>Страна</th><th>Цена</th><th>ЕД. Изм.</th><th>Картинка</th><th>Кат. ID</th><th>Подкатегория</th><th>Акционный товар</th><th>Сезонный товар</th><th>Описание</th></tr>
         @foreach (var fish in Model)
         {
-            <tr>
-                <td>@fish.name</td>
-                <td>@fish.country</td>
-                <td>@fish.price</td>
-                <td>@fish.unit</td>
-                <td><img src="@fish.img" width="250" height="150"/></td>
-                <td>@fish.categoryID</td>
-                <td>@fish.SubCategory</td>
+    <tr>
+        <td>@fish.name</td>
+        <td>@fish.country</td>
+        <td>@fish.price</td>
+        <td>@fish.unit</td>
+        <td><img src="@fish.img" width="250" height="150" /></td>
+        <td>@fish.categoryID</td>
+        <td>@fish.SubCategory</td>
+        <td>@fish.IsPromotionalItem</td>
+        <td>@fish.SeasonItem</td>
+        <td>@fish.Description</td>
 
-                <td>
-                    <form asp-action="Delete" asp-route-id="@fish.id" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@fish.id">Изменить</a>
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            Удалить
-                        </button>
-                    </form>
-                </td>
-            </tr>
+        <td>
+            <form asp-action="Delete" asp-route-id="@fish.id" method="post">
+                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@fish.id">Изменить</a>
+                <button type="submit" class="btn btn-sm btn-danger">
+                    Удалить
+                </button>
+            </form>
+        </td>
+    </tr>
         }
     </table>
 }
