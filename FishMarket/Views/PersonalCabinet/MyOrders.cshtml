@@ -1,22 +1,42 @@
-﻿@model  IEnumerable<FishMarket.ViewModels.OrderViewModel>
+﻿@model IEnumerable<FishMarket.ViewModels.ShoppingBasketViewModel>
+@{
+    foreach (var item in Model)
+    {
+        if (User.Identity.Name == item.Email)
+        {
+            <h3>@item.Name, проверьте правильность данных и подтвердите заказ</h3>
+            <br />
+            <h4>Ваш номер телефона: @item.PhoneNumber</h4>
+            break;
+        }
+    }
+}
+<table class="table">
+    <tr class="bg-dark text-white"><th>Товар</th><th>Цена</th><th>Цена за 1 кг/шт</th><th>Кол-во кг/шт</th><th></th></tr>
+    @{
 
-    <body>
-        <h3>Мои заказы</h3>
-        @{
-            foreach (var item in Model)
+        foreach (var item in Model)
+        {
+            if (User.Identity.Name == item.Email)
             {
-                if (item.Email == User.Identity.Name)
-                {
-                    <div class="row mt-5 mb-2">
-
-                        <div class="col-lg-4">
-                            <h3>@item.ProductName</h3>
-                            <p>Цена: @Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</p>
-                            <p>Цена за 1 @item.unit: @item.Price грн</p>
-                            <p>Количество @item.unit: @item.Count</p>
-                        </div>
-                    </div>
-                }
+                <tr >
+                    <td>@item.ProductName</td>
+                    <td>@Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</td>
+                    <td>@item.Price/@item.unit</td>
+                    <td>@item.Count @item.unit</td>
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id">
+                                Изменить
+                            </a>
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Удалить
+                            </button>
+                        </form>
+                    </td>
+                </tr>
             }
         }
-    </body>
+    }
+</table>
+

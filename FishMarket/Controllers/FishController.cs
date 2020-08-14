@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 // Отправка уведомлений при order в тг
 // корзина отдельная
 // поисковик
-
 // стили Lаst
 
 namespace FishMarket.Controllers
@@ -22,11 +21,13 @@ namespace FishMarket.Controllers
         private readonly IAllFish _allFish;
         private readonly IFishCategory _allCategories;
         UserManager<User> _userManager;
+        private ShoppingBasketContext basket;
         private FishContext db;
         private OrderContext orderDb;
 
-        public FishController(IAllFish iallFish, IFishCategory ifishCat, FishContext context, OrderContext contextDb, UserManager<User> userManager)
+        public FishController(ShoppingBasketContext baskets, IAllFish iallFish, IFishCategory ifishCat, FishContext context, OrderContext contextDb, UserManager<User> userManager)
         {
+            basket = baskets;
             db = context;
             orderDb = contextDb;
             _allCategories = ifishCat;
@@ -62,7 +63,7 @@ namespace FishMarket.Controllers
         public async Task<IActionResult> OrderAsync(string Email, string prname)
         {
             var product = db.fish.AsNoTracking();
-            var count = orderDb.order.ToList();
+            var count = basket.basket.ToList();
             Fish fish = new Fish();
             foreach (var item in product)
             {
@@ -79,15 +80,15 @@ namespace FishMarket.Controllers
             {
                 return NotFound();
             }
-            OrderViewModel model = new OrderViewModel { Id = count.Count().ToString(), Name = user.Name, Email = user.Email, PhoneNumber = user.NumberPhone, Price = fish.price, ProductName = fish.name, unit = fish.unit };
+            ShoppingBasketViewModel model = new ShoppingBasketViewModel {Id = count.Count().ToString(), Name = user.Name, Email = user.Email, PhoneNumber = user.NumberPhone, Price = fish.price, ProductName = fish.name, unit = fish.unit };
 
             return View(model);
         }
         [HttpPost]
-        public IActionResult Order(OrderViewModel Orders)
+        public IActionResult Order(ShoppingBasketViewModel Orders)
         {
-            orderDb.order.Add(Orders);
-            orderDb.SaveChanges();
+            basket.basket.Add(Orders);
+            basket.SaveChanges();
             return RedirectToAction("ThanksOrder");
         }
         public IActionResult ThanksOrder() => View();

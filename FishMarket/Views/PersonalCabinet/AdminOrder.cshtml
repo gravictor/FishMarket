@@ -3,7 +3,6 @@
     <table class="table">
         <tr><th>ID заказа</th><th>Товар</th><th>Заказчик</th><th>Номер</th><th>Email</th><th>Цена</th><th>Цена за 1 кг/шт</th><th>Кол-во кг/шт</th><th>Состояние</th></tr>
         @{
-            int i = 0;
             @foreach (var item in Model)
             {
                 if (User.Identity.Name == "admin12345@gmail.com")

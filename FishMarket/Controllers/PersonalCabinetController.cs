@@ -13,9 +13,11 @@ namespace FishMarket.Controllers
     public class PersonalCabinetController: Controller
     {
         private OrderContext db;
+        private ShoppingBasketContext shbasket;
         UserManager<User> _userManager;
-        public PersonalCabinetController(UserManager<User> userManager, OrderContext context)
+        public PersonalCabinetController(ShoppingBasketContext basket, UserManager<User> userManager, OrderContext context)
         {
+            shbasket = basket;
             db = context;
             _userManager = userManager;
         }
@@ -70,7 +72,15 @@ namespace FishMarket.Controllers
         }
         public IActionResult MyOrders()
         {
-            var data = db.order.AsNoTracking().ToList();
+            var data = shbasket.basket.AsNoTracking().ToList();
+            foreach (var item in data)
+            {
+                if (item.Email=="valeramail.ru")
+                {
+                    shbasket.Remove(item);
+                    shbasket.SaveChanges();
+                }
+            }
             return View(data);
         }
         public IActionResult AdminOrder()
@@ -91,6 +101,63 @@ namespace FishMarket.Controllers
                 }
             }
             return RedirectToAction("AdminOrder");
+        }
+        public IActionResult Edit(string id)
+        {
+            var basket = shbasket.basket.ToList();
+            ShoppingBasketViewModel choosenItem = new ShoppingBasketViewModel();
+            foreach (var item in basket)
+            {
+                if (item.Id ==id)
+                {
+                    ShoppingBasketViewModel model = new ShoppingBasketViewModel { Id = item.Id, Count = item.Count, Name = item.Name, Email=item.Email, PhoneNumber = item.PhoneNumber, Price = item.Price, ProductName = item.ProductName, unit = item.unit};
+                    choosenItem = model;
+                }
+            }
+            
+            return View(choosenItem);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ShoppingBasketViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = shbasket.basket.AsNoTracking().ToList();
+                ShoppingBasketViewModel selectedObj = new ShoppingBasketViewModel();
+                foreach (var obj in item)
+                {
+                    if (obj.Id == model.Id)
+                    {
+                        selectedObj = obj;
+                    }
+                }
+                if (item != null)
+                {
+                    selectedObj.Id = model.Id;
+                    selectedObj.PhoneNumber = model.PhoneNumber;
+                    selectedObj.Count = model.Count;
+
+                    shbasket.Update(selectedObj);
+                    shbasket.SaveChanges();
+                }
+            }
+            return RedirectToAction("MyOrders");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(string id)
+        {
+            var basket =  shbasket.basket.ToList();
+            foreach (var item in basket)
+            {
+                if (item.Id == id)
+                {
+                    shbasket.Remove(item);
+                    shbasket.SaveChanges();
+                }
+            }
+            return RedirectToAction("MyOrders");
         }
     }
 }
