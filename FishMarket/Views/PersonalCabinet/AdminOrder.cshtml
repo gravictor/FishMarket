@@ -1,26 +1,52 @@
 ﻿@model IEnumerable<FishMarket.ViewModels.OrderViewModel>
 
     <table class="table">
-        <tr><th>ID заказа</th><th>Товар</th><th>Заказчик</th><th>Номер</th><th>Email</th><th>Цена</th><th>Цена за 1 кг/шт</th><th>Кол-во кг/шт</th></tr>
+        <tr><th>ID заказа</th><th>Товар</th><th>Заказчик</th><th>Номер</th><th>Email</th><th>Цена</th><th>Цена за 1 кг/шт</th><th>Кол-во кг/шт</th><th>Состояние</th></tr>
         @{
             int i = 0;
             @foreach (var item in Model)
             {
                 if (User.Identity.Name == "admin12345@gmail.com")
                 {
-                    i++;
-                    <tr>
-                        <td>@i</td>
-                        <td>@item.ProductName</td>
-                        <td>@item.Name</td>
-                        <td>@item.PhoneNumber</td>
-                        <td>@item.Email</td>
-                        <td>@Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</td>
-                        <td>@item.Price/@item.unit</td>
-                        <td>@item.Count @item.unit</td>
-                    </tr>
+                    if (item.IsOrderProcessed == "+")
+                    {
+                        <tr class="bg-dark text-white">
+                            <td>@item.Id</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Name</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Email</td>
+                            <td>@Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</td>
+                            <td>@item.Price/@item.unit</td>
+                            <td>@item.Count @item.unit</td>
+                            <td>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Name</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Email</td>
+                            <td>@Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</td>
+                            <td>@item.Price/@item.unit</td>
+                            <td>@item.Count @item.unit</td>
+                            <td>
+
+                                <form asp-action="ProcessedOrder" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Обработан
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
                 }
             }
-            }
-    </table>        
+        }
+    </table>
 

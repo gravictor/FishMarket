@@ -78,5 +78,19 @@ namespace FishMarket.Controllers
             var data = db.order.AsNoTracking().ToList();
             return View(data);
         }
+        public IActionResult ProcessedOrder(string id)
+        {
+            var data = db.order.AsNoTracking().ToList();
+            foreach (var item in data)
+            {
+                if (item.Id == id)
+                {
+                    item.IsOrderProcessed = "+";
+                    db.Update(item);
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AdminOrder");
+        }
     }
 }

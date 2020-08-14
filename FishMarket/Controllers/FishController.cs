@@ -10,15 +10,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 // Отправка уведомлений при order в тг
-// акционный товар светиться isFav
-// добавить к рыбе описание
-// Акционная цена = описание
-// rar видимка сезонные на главную страницу
-// Подсветка обработ заказов
-
-// стили Lаst
 // корзина отдельная
 // поисковик
+
+// стили Lаst
 
 namespace FishMarket.Controllers
 {
@@ -67,6 +62,7 @@ namespace FishMarket.Controllers
         public async Task<IActionResult> OrderAsync(string Email, string prname)
         {
             var product = db.fish.AsNoTracking();
+            var count = orderDb.order.ToList();
             Fish fish = new Fish();
             foreach (var item in product)
             {
@@ -83,7 +79,7 @@ namespace FishMarket.Controllers
             {
                 return NotFound();
             }
-            OrderViewModel model = new OrderViewModel { Id = user.Id, Name = user.Name, Email = user.Email, PhoneNumber = user.NumberPhone, Price = fish.price, ProductName = fish.name, unit = fish.unit };
+            OrderViewModel model = new OrderViewModel { Id = count.Count().ToString(), Name = user.Name, Email = user.Email, PhoneNumber = user.NumberPhone, Price = fish.price, ProductName = fish.name, unit = fish.unit };
 
             return View(model);
         }
