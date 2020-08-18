@@ -19,24 +19,43 @@
         {
             if (User.Identity.Name == item.Email)
             {
-                <tr >
-                    <td>@item.ProductName</td>
-                    <td>@Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</td>
-                    <td>@item.Price/@item.unit</td>
-                    <td>@item.Count @item.unit</td>
-                    <td>
-                        <form asp-action="Delete" asp-route-id="@item.Id" method="post">
-                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id">
-                                Изменить
-                            </a>
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                Удалить
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                if (item.isSent == "+")
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</td>
+                        <td>@item.Price/@item.unit</td>
+                        <td>@item.Count @item.unit</td>
+                        <td>
+                            Заказ отправлен
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@Convert.ToInt32(Convert.ToDouble(item.Price) * Convert.ToDouble(item.Count)) грн</td>
+                        <td>@item.Price/@item.unit</td>
+                        <td>@item.Count @item.unit</td>
+                        <td>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id">
+                                    Изменить
+                                </a>
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Удалить
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
             }
         }
     }
 </table>
 
+
+<a class="btn btn-sm btn-primary" asp-action="MakeOrder" asp-route-name="@User.Identity.Name">
+    Отправить заказ
+</a>

@@ -15,5 +15,6 @@ namespace FishMarket.ViewModels
         public string Price { get; set; }
         public string Count { get; set; }
         public string unit { get; set; }
+        public string isSent { get; set; }
     }
 }

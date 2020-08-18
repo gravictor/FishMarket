@@ -135,7 +135,6 @@ namespace FishMarket.Controllers
                 if (item != null)
                 {
                     selectedObj.Id = model.Id;
-                    selectedObj.PhoneNumber = model.PhoneNumber;
                     selectedObj.Count = model.Count;
 
                     shbasket.Update(selectedObj);
@@ -155,6 +154,29 @@ namespace FishMarket.Controllers
                 {
                     shbasket.Remove(item);
                     shbasket.SaveChanges();
+                }
+            }
+            return RedirectToAction("MyOrders");
+        }
+        public IActionResult MakeOrder(string name)
+        {
+            var basket = shbasket.basket.ToList();
+            foreach (var item in basket)
+            {
+                if (item.Email == name)
+                {
+                    if (item.isSent !="+")
+                    {
+                        item.isSent = "+";
+                        OrderViewModel order = new OrderViewModel
+                        {
+                            Name = item.Name, Count = item.Count, Email = item.Email, Id = item.Id, PhoneNumber = item.PhoneNumber, Price = item.Price, ProductName = item.ProductName, unit = item.unit
+                        };
+                        db.Add(order);
+                        db.SaveChanges();
+                        shbasket.Update(item);
+                        shbasket.SaveChanges();
+                    }
                 }
             }
             return RedirectToAction("MyOrders");
