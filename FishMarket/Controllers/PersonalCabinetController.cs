@@ -2,16 +2,19 @@
 using FishMarket.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Telegram.Bot;
 
 namespace FishMarket.Controllers
 {
     public class PersonalCabinetController: Controller
     {
+        const string TOKEN = "1312303375:AAH7OsDahqwetVGIOR3OgeD5pRwDO92zvMI";
         private OrderContext db;
         private ShoppingBasketContext shbasket;
         UserManager<User> _userManager;
@@ -20,6 +23,7 @@ namespace FishMarket.Controllers
             shbasket = basket;
             db = context;
             _userManager = userManager;
+            
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());
@@ -174,12 +178,41 @@ namespace FishMarket.Controllers
                         };
                         db.Add(order);
                         db.SaveChanges();
+                        SendMessage(order).Wait();
                         shbasket.Update(item);
                         shbasket.SaveChanges();
                     }
                 }
             }
             return RedirectToAction("MyOrders");
+        }
+        static async Task SendMessage(OrderViewModel order)
+        {
+            int offset = 0;
+            int timeout = 0;
+            TelegramBotClient bot = new TelegramBotClient(TOKEN);
+            try
+            {
+
+                await bot.SetWebhookAsync("");
+                for (int i = 0; i < 2; i++)
+                {
+
+                    var update = await bot.GetUpdatesAsync(offset, timeout);
+                    foreach (var updates in update)
+                    {
+                        var message = updates.Message;
+
+                        await bot.SendTextMessageAsync(message.Chat.Id, "Заказ № " + order.Id + "\nТовар: " + order.ProductName + "\nКоличество " + order.unit + " = " + order.Count + "\nНа сумму " + Convert.ToDouble(order.Price) * Convert.ToDouble(order.Count) + " грн\nЗаказчик: " + order.Name + "\nНомер телефона: " + order.PhoneNumber);
+                        offset = updates.Id + 1;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

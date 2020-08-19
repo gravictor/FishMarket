@@ -10,8 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 // Отправка уведомлений при order в тг
-// корзина отдельная
 // поисковик
+ 
 // стили Lаst
 
 namespace FishMarket.Controllers
