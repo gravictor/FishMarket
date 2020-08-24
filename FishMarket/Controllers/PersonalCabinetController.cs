@@ -12,7 +12,7 @@ using Telegram.Bot;
 
 namespace FishMarket.Controllers
 {
-    public class PersonalCabinetController: Controller
+    public class PersonalCabinetController : Controller
     {
         const string TOKEN = "1312303375:AAH7OsDahqwetVGIOR3OgeD5pRwDO92zvMI";
         private OrderContext db;
@@ -23,7 +23,7 @@ namespace FishMarket.Controllers
             shbasket = basket;
             db = context;
             _userManager = userManager;
-            
+
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());
@@ -79,7 +79,7 @@ namespace FishMarket.Controllers
             var data = shbasket.basket.AsNoTracking().ToList();
             foreach (var item in data)
             {
-                if (item.Email=="valeramail.ru")
+                if (item.Email == "valeramail.ru")
                 {
                     shbasket.Remove(item);
                     shbasket.SaveChanges();
@@ -112,13 +112,13 @@ namespace FishMarket.Controllers
             ShoppingBasketViewModel choosenItem = new ShoppingBasketViewModel();
             foreach (var item in basket)
             {
-                if (item.Id ==id)
+                if (item.Id == id)
                 {
-                    ShoppingBasketViewModel model = new ShoppingBasketViewModel { Id = item.Id, Count = item.Count, Name = item.Name, Email=item.Email, PhoneNumber = item.PhoneNumber, Price = item.Price, ProductName = item.ProductName, unit = item.unit};
+                    ShoppingBasketViewModel model = new ShoppingBasketViewModel { Id = item.Id, Count = item.Count, Name = item.Name, Email = item.Email, PhoneNumber = item.PhoneNumber, Price = item.Price, ProductName = item.ProductName, unit = item.unit };
                     choosenItem = model;
                 }
             }
-            
+
             return View(choosenItem);
         }
 
@@ -151,7 +151,7 @@ namespace FishMarket.Controllers
         [HttpPost]
         public IActionResult Delete(string id)
         {
-            var basket =  shbasket.basket.ToList();
+            var basket = shbasket.basket.ToList();
             foreach (var item in basket)
             {
                 if (item.Id == id)
@@ -169,12 +169,19 @@ namespace FishMarket.Controllers
             {
                 if (item.Email == name)
                 {
-                    if (item.isSent !="+")
+                    if (item.isSent != "+")
                     {
                         item.isSent = "+";
                         OrderViewModel order = new OrderViewModel
                         {
-                            Name = item.Name, Count = item.Count, Email = item.Email, Id = item.Id, PhoneNumber = item.PhoneNumber, Price = item.Price, ProductName = item.ProductName, unit = item.unit
+                            Name = item.Name,
+                            Count = item.Count,
+                            Email = item.Email,
+                            Id = item.Id,
+                            PhoneNumber = item.PhoneNumber,
+                            Price = item.Price,
+                            ProductName = item.ProductName,
+                            unit = item.unit
                         };
                         db.Add(order);
                         db.SaveChanges();
@@ -188,31 +195,15 @@ namespace FishMarket.Controllers
         }
         static async Task SendMessage(OrderViewModel order)
         {
-            int offset = 0;
-            int timeout = 0;
+            List<string> ChatId = new List<string>() ;
+            ChatId.Add("418650370");
             TelegramBotClient bot = new TelegramBotClient(TOKEN);
-            try
+            var GetMe = bot.GetMeAsync();
+            foreach (var item in ChatId)
             {
-
-                await bot.SetWebhookAsync("");
-                for (int i = 0; i < 2; i++)
-                {
-
-                    var update = await bot.GetUpdatesAsync(offset, timeout);
-                    foreach (var updates in update)
-                    {
-                        var message = updates.Message;
-
-                        await bot.SendTextMessageAsync(message.Chat.Id, "Заказ № " + order.Id + "\nТовар: " + order.ProductName + "\nКоличество " + order.unit + " = " + order.Count + "\nНа сумму " + Convert.ToDouble(order.Price) * Convert.ToDouble(order.Count) + " грн\nЗаказчик: " + order.Name + "\nНомер телефона: " + order.PhoneNumber);
-                        offset = updates.Id + 1;
-                    }
-                }
+                await bot.SendTextMessageAsync(item, "Заказ № " + order.Id + "\nТовар: " + order.ProductName + "\nКоличество " + order.unit + " = " + order.Count + "\nНа сумму " + Convert.ToDouble(order.Price) * Convert.ToDouble(order.Count) + " грн\nЗаказчик: " + order.Name + "\nНомер телефона: " + order.PhoneNumber);
             }
-            catch (Exception)
-            {
 
-                throw;
-            }
         }
     }
 }
