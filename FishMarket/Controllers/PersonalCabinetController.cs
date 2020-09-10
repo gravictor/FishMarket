@@ -196,7 +196,8 @@ namespace FishMarket.Controllers
         static async Task SendMessage(OrderViewModel order)
         {
             List<string> ChatId = new List<string>() ;
-            ChatId.Add("418650370");
+            ChatId.Add ("418650370");
+            ChatId.Add("557181128");
             TelegramBotClient bot = new TelegramBotClient(TOKEN);
             var GetMe = bot.GetMeAsync();
             foreach (var item in ChatId)

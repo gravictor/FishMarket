@@ -1,40 +1,312 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-    <div class="row mt-5 mb-2">
-        @{
-            foreach (var fish in Model)
-            {
-                if (fish.SeasonItem=="+")
-                {
 
-                    <div class="col-lg-4">
-                        <img class="img-thumbnail" src="@fish.img" alt="@fish.name " width="300" height="150" />
-                        <h2>@fish.name </h2>
-                        <p>Цена: @fish.price грн/@fish.unit</p>
-                        <p>Страна изготовитель: @fish.country</p>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <main>
+        <form method="post" asp-controller="Home" asp-action="Index">
+            <section class="startscreen">
+                <div class="wrapper">
+                    <h1 class="startscreen__title">
+
+                        FishMarket<br>
+                        Вкусная и свежая рыба <br>
+                    </h1>
+                    <div class="startscreen__buttons">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <form asp-action="Order" asp-controller="Fish" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name" method="post" />
-                            <a class="btn btn-sm btn-primary" asp-action="Order" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name">Купить</a>
+                            <button type="submit" class="startscreen__but1" asp-action="List" asp-controller="Fish">
+                                Перейти к ассортименту!
+                            </button>
                         }
+                        else
+                        {
+                            <button type="submit" class="startscreen__but1" asp-action="Index" asp-controller="PersonalCabinet">
+                                Перейти к ассортименту!
+                            </button>
+                        }
+                        <button type="submit" class="startscreen__but2" asp-action="List" asp-controller="Fish">
+                            Подробнее
+                        </button>
                     </div>
+                </div>
+            </section>
+            <div class="row mt-5 mb-2 wrapper">
+                <p class="aboutus__title">
+                    Сезонные товары
+                </p>
+                <br />
+                @{
+                    foreach (var fish in Model)
+                    {
+                        if (fish.SeasonItem == "+")
+                        {
+
+                            <div class="col-lg-4">
+                                <img class="img-thumbnail" src="@fish.img" alt="@fish.name " width="300" height="150" />
+                                <h2>@fish.name </h2>
+                                <p>Цена: @fish.price грн/@fish.unit</p>
+                                <p>Страна изготовитель: @fish.country</p>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-action="Order" asp-controller="Fish" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name" method="post" />
+                                    <a class="btn btn-sm btn-primary" asp-controller="Fish" asp-action="Order" asp-route-email="@User.Identity.Name" asp-route-prname="@fish.name">Купить</a>
+                                }
+                            </div>
+                        }
+                    }
                 }
-            }
+            </div>
+            <section class="aboutus">
+                <div class="wrapper">
+                    <p class="aboutus__title">
+                        Про нас
+                    </p>
+                    <div class="aboutus__about">
+                        <div class="aboutus__textarea">
+                            <p class="aboutus__textarea-text">
+                                Ми компанія лідер у сфері постачання страхових послуг та один з лідерів страхових компаній у нашій країні. Компанія заснована у 2010 році та
+                                працює та захищає ваше здоров'я, майно та майбутнє вже 10 років! Наша мета зберігати ваше життя та спокій кожен день! Якщо ви та ваша сім'я потребує
+                                надійності у завтрошньому дні, то ми створені саме для цього та турбуємось про вас кожну мить. <br><br><br>
+                                Замовити страховку у нас - це надійність та спокій у майбутньому!
+                            </p>
+                        </div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2750.9267768748036!2d30.706670714971683!3d46.41050737782262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c6336a8b49077b%3A0xbdd8a95cffc7be8e!2z0L_RgC3Rgi4g0J3QtdCx0LXRgdC90L7QuSDQodC-0YLQvdC4LCAxMCwg0J7QtNC10YHRgdCwLCDQntC00LXRgdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCA2NTAwMA!5e0!3m2!1sru!2sua!4v1595327897325!5m2!1sru!2sua" width="550" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                </div>
+            </section>
+            <section class="whyus">
+                <div class="wrapper">
+                    <p class="whyus__title">
+                        Почему мы?
+                    </p>
+                    <p class="whyus__subtitle">
+                        Наши плюсы
+                    </p>
+                    <div class="whyus__achievements">
+                        <div class="whyus__points point1">
+                            <p class="whyus__point-number number1">1</p>
+                            <p class="whyus__point-text text1">
+                                Работаем с 200 n года
+                            </p>
+                        </div>
+                        <div class="whyus__points point2">
+                            <p class="whyus__point-number number2">2</p>
+                            <p class="whyus__point-text text2">
+                                Свежая продукция
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="whyus__points point3">
+                            <p class="whyus__point-number number3">3</p>
+                            <p class="whyus__point-text text4">
+                                Большой ассортиметнт
+                            </p>
+                        </div>
+                        <div class="whyus__points point4">
+                            <p class="whyus__point-number number4">4</p>
+                            <p class="whyus__point-text text4">
+                                Много скидок
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </main>
+</body>
+</html>
+<style>
+    html {
+        box-sizing: border-box;
+    }
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+    }
+
+    .wrapper {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    section {
+        height: 700px;
+        box-shadow: 0px 0px 10px rgb(0,0,0,0.5);
+    }
+
+    .startscreen {
+        height: 700px;
+        background: url(../images/insurance.jpg) no-repeat center;
+        box-shadow: inset 700px 700px 500px rgb(0,0,0,0.7);
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .startscreen__title {
+        font-family: Merriweather, sans-serif;
+        font-weight: bold;
+        text-align: center;
+        text-decoration-line: underline;
+        font-size: 38px;
+        line-height: 66px;
+        color: #fff;
+    }
+
+    .startscreen__buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+    .startscreen__but1, .startscreen__but2 {
+        margin-top: 100px;
+        padding: 19px 19px;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .startscreen__but1 {
+        margin-right: 30px;
+        color: #fff;
+        background-color: #1E90FF;
+        border: none;
+    }
+
+        .startscreen__but1:hover, .startscreen__but1:focus, .startscreen__but1:active {
+            background: #1E90FF;
+            border: 5px solid #4169E1;
         }
-    </div>
-@if (User.Identity.IsAuthenticated)
-{
-    <p> @User.Identity.Name</p>
 
-    <form method="post" asp-controller="Account" asp-action="Logout">
-        <input type="submit" value="Выход" />
-    </form>
-}
-else
-{
-    <a asp-controller="Account" asp-action="Login">Вход</a>
-    <a asp-controller="Account" asp-action="Register">Регистрация</a>
-}
+    .startscreen__but2 {
+        color: #fff;
+        background: none;
+        border: 3px solid #fff;
+    }
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2750.9267768748036!2d30.706670714971683!3d46.41050737782262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c6336a8b49077b%3A0xbdd8a95cffc7be8e!2z0L_RgC3Rgi4g0J3QtdCx0LXRgdC90L7QuSDQodC-0YLQvdC4LCAxMCwg0J7QtNC10YHRgdCwLCDQntC00LXRgdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCA2NTAwMA!5e0!3m2!1sru!2sua!4v1595327897325!5m2!1sru!2sua" width="550" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        .startscreen__but2:hover, .startscreen__but2:focus, .startscreen__but2:active {
+            background: rgb(255,255,255,0.5);
+            border: 5px solid #fff;
+        }
+
+    .aboutus {
+        height: 700px;
+        display: flex;
+        font-family: Merriweather;
+        font-weight: 900;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .aboutus__title {
+        margin-top: 50px;
+        font-size: 38px;
+        text-align: center;
+        text-decoration-line: underline;
+    }
+
+    .aboutus__subtitle {
+        font-size: 36px;
+        color: rgba(0, 0, 0, 0.7);
+        text-align: center;
+    }
+
+    .aboutus__about {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+    }
+
+    .aboutus__textarea {
+        width: 590px;
+        height: 450px;
+        background-color: #F3F3F3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .aboutus__textarea-text {
+        font-size: 19px;
+        text-align: left;
+        padding: 50px;
+    }
+
+    .whyus {
+        height: 700px;
+        display: flex;
+        background: #6495ED;
+        font-family: Merriweather;
+        font-weight: 900;
+        color: #FFF;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .whyus__title {
+        font-size: 48px;
+        text-align: center;
+        text-decoration-line: underline;
+    }
+
+    .whyus__subtitle {
+        font-size: 36px;
+        text-align: center;
+        margin-top: 10px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .whyus__achievements {
+        margin-top: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .whyus__points {
+        width: 400px;
+        height: 160px;
+        display: flex;
+        align-items: center;
+    }
+
+    .whyus__point-number {
+        font-family: Seaweed Script;
+        text-decoration-line: underline;
+        font-size: 96px;
+    }
+
+    .whyus__point-text {
+        font-size: 19px;
+        padding-left: 30px;
+    }
+
+    hr {
+        width: 100%;
+        height: 1px;
+    }
+</style>
